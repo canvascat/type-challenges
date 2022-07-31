@@ -22,3 +22,8 @@ interface Expected1 {
 interface Expected2 {
   title: string
 }
+
+type MyOmit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+//  {
+//   [P in Exclude<keyof T, K>]: T[P]
+// }
