@@ -13,3 +13,7 @@ type errors = [
   // @ts-expect-error
   First<{ 0: 'arrayLike' }>,
 ]
+
+// 学习 infer 待推断
+// https://jkchao.github.io/typescript-book-chinese/tips/infer.html
+type First<T extends any[]> = T extends [infer First, ...infer Rest] ? First : never
