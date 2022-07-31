@@ -18,3 +18,12 @@ type cases = [
   Expect<Equal<Includes<[null], undefined>, false>>,
   Expect<Equal<Includes<[undefined], null>, false>>,
 ]
+
+// 不能判断全等，下面需要借助 Equal 方法，感觉这题挺恶心的🤷‍♀️
+// type Includes<T extends readonly any[], U> = U extends T[number] ? true : false
+
+type Includes<T extends readonly any[], U> = T extends [infer FIRST, ... infer REST]
+  ? Equal<FIRST, U> extends true
+    ? true
+    : REST extends never ? false : Includes<REST, U>
+  : false
