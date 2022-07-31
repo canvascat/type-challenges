@@ -12,3 +12,7 @@ type cases = [
 
 // @ts-expect-error
 type error = TupleToObject<[[1, 2], {}]>
+
+type TupleToObject<T extends readonly any[]> = {
+  [V in T[number]]: V
+}
