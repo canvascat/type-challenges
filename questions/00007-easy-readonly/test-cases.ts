@@ -12,3 +12,7 @@ interface Todo1 {
     author: string
   }
 }
+
+type MyReadonly<T> = {
+  readonly [K in keyof T]: T[K]
+}
