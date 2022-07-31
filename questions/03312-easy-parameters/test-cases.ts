@@ -9,3 +9,6 @@ type cases = [
   Expect<Equal<MyParameters<typeof bar>, [boolean, { a: 'A' }]>>,
   Expect<Equal<MyParameters<typeof baz>, []>>,
 ]
+
+// TIP: 仅条件类型的 "extends" 子句中才允许 "infer" 声明
+type MyParameters<T extends (...args: any[]) => any> = T extends (...args: infer P) => any ? P : never 
