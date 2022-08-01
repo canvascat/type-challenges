@@ -11,3 +11,5 @@ type cases = [
   Expect<Equal<ReplaceAll<'foboorfoboar', 'bo', 'b'>, 'foborfobar'>>,
   Expect<Equal<ReplaceAll<'', '', ''>, ''>>,
 ]
+
+type ReplaceAll<S extends string, From extends string, To extends string> = From extends '' ? S : S extends `${infer F}${From}${infer L}` ? `${F}${To}${ReplaceAll<L, From, To>}` : S
