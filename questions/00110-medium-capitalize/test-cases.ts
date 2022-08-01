@@ -32,3 +32,41 @@ type cases = [
   Expect<Equal<MyCapitalize<'y'>, 'Y'>>,
   Expect<Equal<MyCapitalize<'z'>, 'Z'>>,
 ]
+
+type M = {
+  'a': 'A'
+  'b': 'B'
+  'c': 'C'
+  'd': 'D'
+  'e': 'E'
+  'f': 'F'
+  'g': 'G'
+  'h': 'H'
+  'i': 'I'
+  'j': 'J'
+  'k': 'K'
+  'l': 'L'
+  'm': 'M'
+  'n': 'N'
+  'o': 'O'
+  'p': 'P'
+  'q': 'Q'
+  'r': 'R'
+  's': 'S'
+  't': 'T'
+  'u': 'U'
+  'v': 'V'
+  'w': 'W'
+  'x': 'X'
+  'y': 'Y'
+  'z': 'Z'
+}
+// 先实现一个自定义 Uppercase
+type MyUppercase<S extends string> = S extends `${infer F}${infer R}` ? `${F extends keyof M ? M[F] : F}${MyUppercase<R>}` : S
+// type Case = 'a b c'
+// type A = Equal<MyUppercase<Case>, Uppercase<Case>>
+
+// type MyCapitalize<S extends string> = S extends `${infer F}${infer R}` ? `${MyUppercase<F>}${R}` : S
+
+type MyCapitalize<S extends string> = S extends `${infer F extends keyof M}${infer R}` ? `${M[F]}${R}` : S
+
