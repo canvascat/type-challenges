@@ -40,3 +40,18 @@ type Expected2 = {
 type Expected3 = {
   name: number
 }
+
+// 比较恶心的一题
+type Chainable<O extends object = {}> = {
+  option<K extends Exclude<keyof any, 'get' | 'option'>, V>(key: K, value: K extends keyof O
+    // 禁止设置value类型一致的key
+    ? O[K] extends V ? never : V
+    : V
+  ): Chainable<(K extends keyof O
+    // 相同的key使用后设置的属性, 需要先排除掉之前设置的
+    ? O[K] extends V ? O : Omit<O, K>
+    : O) & {
+    [P in K]: V
+  }>
+  get(): O
+}

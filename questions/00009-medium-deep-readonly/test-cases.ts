@@ -49,3 +49,15 @@ type Expected = {
     }
   }
 }
+
+type DeepReadonly<T> = {
+  readonly [P in keyof T]: T[P] extends (() => unknown) ? T[P] : DeepReadonly<T[P]>
+}
+
+// TIP:
+// keyof T[P] extends never ? T[P] : 主要用于排除 函数
+// 也可以使用 T[P] extends Function
+// type cases = [
+//   Expect<Equal<keyof (() => any), never>>,
+//   Expect<Equal<keyof ({}), never>>,
+// ]
